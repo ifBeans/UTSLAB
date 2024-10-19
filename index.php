@@ -21,8 +21,8 @@ $pstatement3->execute();
 
 $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
     ID_Todo INT AUTO_INCREMENT,
-    Deskripsi VARCHAR(50),
-    Kategori VARCHAR(20),
+    Description VARCHAR(50),
+    Category VARCHAR(20),
     ID_User INT,
     PRIMARY KEY (ID_Todo),
     FOREIGN KEY (ID_User) REFERENCES user(ID_User)
