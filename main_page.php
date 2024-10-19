@@ -195,7 +195,7 @@ if (isset($_POST['logout'])) {
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo "<div class='grid shadow-2xl rounded-lg bg-" . ($filter === 'td' ? "red" : ($filter === 'og' ? "yellow" : "green")) . "-100 mt-5 p-10 w-3/4 text-start relative'>
                                     <button onclick='confirmDelete({$row['ID_Todo']})' class='absolute top-0 right-0 mt-2 mr-2 text-red-500 hover:text-red-700'>X</button>
-                                    <h1>{$row['Kategori']}</h1>
+                                    <h1>{$row['category']}</h1>
                                     <p class='text-md font-medium text-gray-900'>{$row['description']}</p>
                                     <form class='max-w-sm ms-auto' method='post' onsubmit='return confirm(\"Are you sure you want to mark this as " . ($filter === 'td' ? "Ongoing" : "Completed") . "?\");'>
                                         <input type='hidden' name='id_todo' value='{$row['ID_Todo']}'>
@@ -308,7 +308,7 @@ if (isset($_POST['logout'])) {
 
                             <div class="grid shadow-2xl rounded-lg bg-red-400 mt-5 p-10 w-3/4 text-start">
 
-                                <h1><?php echo $row['kategori'] ?></h1>
+                                <h1><?php echo $row['category'] ?></h1>
                                 <p class="text-md font-medium text-gray-900"><?php echo $row['description'] ?></p>
 
                                 <form class="max-w-sm ms-auto" method="post">
@@ -354,7 +354,7 @@ if (isset($_POST['logout'])) {
 
                             <div class="grid shadow-2xl rounded-lg bg-yellow-100 mt-5 p-10 w-3/4 text-start">
 
-                                <h1><?php echo $row['kategori'] ?></h1>
+                                <h1><?php echo $row['category'] ?></h1>
                                 <p class="text-md font-medium text-gray-900"><?php echo $row['description'] ?></p>
 
                                 <form class="max-w-sm ms-auto" method="post">
@@ -400,7 +400,7 @@ if (isset($_POST['logout'])) {
 
                             <div class="grid shadow-2xl rounded-lg bg-green-100 mt-5 p-10 w-3/4 text-start">
 
-                                <h1><?php echo $row['kategori'] ?></h1>
+                                <h1><?php echo $row['category'] ?></h1>
                                 <p class="text-md font-medium text-gray-900"><?php echo $row['description'] ?></p>
 
                             </div>
