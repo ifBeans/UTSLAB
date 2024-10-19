@@ -8,7 +8,7 @@ $description = $_POST['todo'];
 $completion = 0;
 $id_user = $_SESSION['id_user'];
 
-$sql = "INSERT INTO todo (kategori, description, completion, id_user) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO todo (kategori, deskripsi, completion, id_user) VALUES (?, ?, ?, ?)";
 
 $result = $db->prepare($sql);
 $result->execute([$kategori, $description, $completion, $id_user]);

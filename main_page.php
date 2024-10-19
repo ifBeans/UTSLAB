@@ -174,6 +174,9 @@ if (isset($_POST['logout'])) {
                             $completionStatus = 2;
                         }
 
+                        $sql = "SELECT * FROM todo WHERE ID_User = ?";
+                        $params = [$id];
+
                         if ($completionStatus !== null) {
                             $sql .= " AND completion = ?";
                             $params[] = $completionStatus;
