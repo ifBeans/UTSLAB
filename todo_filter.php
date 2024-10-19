@@ -20,3 +20,4 @@ switch ($_POST['filter_status']) {
 $_SESSION['filter'] = $status;
 
 header('Location: main_page.php');
+exit();

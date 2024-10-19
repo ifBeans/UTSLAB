@@ -1,3 +1,37 @@
+<?php
+
+$dbname = 'utslab';
+
+$mysql = new PDO("mysql:host=localhost", 'root', '');
+$pstatement = $mysql->prepare("CREATE DATABASE IF NOT EXISTS $dbname");
+$pstatement->execute();
+
+$pstatement2 = $mysql->prepare("USE $dbname");
+$pstatement2->execute();
+
+$pstatement3 = $mysql->prepare("CREATE TABLE IF NOT EXISTS user(
+    ID_User INT AUTO_INCREMENT,
+    Username VARCHAR(20) UNIQUE,
+    Email VARCHAR(30),
+    Password VARCHAR(70),
+    PRIMARY KEY (ID_User)
+)");
+
+$pstatement3->execute();
+
+$pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
+    ID_Todo INT AUTO_INCREMENT,
+    Deskripsi VARCHAR(50),
+    Kategori VARCHAR(20),
+    ID_User INT,
+    PRIMARY KEY (ID_Todo),
+    FOREIGN KEY (ID_User) REFERENCES user(ID_User)
+)");
+
+$pstatement4->execute();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,36 +48,34 @@
 
     session_start();
 
-    if(isset($_SESSION['id_user'])){
+    if (isset($_SESSION['id_user'])) {
         header("Location: main_page.php");
-    }
-
-    else{
+    } else {
     ?>
 
-    <div class="container-fluid content-center p-6">
+        <div class="container-fluid content-center p-6">
 
-        <div class="w-25 h-100 mt-3">   
+            <div class="w-25 h-100 mt-3">
 
-            <form class="max-w-sm mx-auto mt-5" action="register.php">
+                <form class="max-w-sm mx-auto mt-5" action="register.php">
 
-                <div class="text-center">   
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Register</button>
-                </div>
+                    <div class="text-center">
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Register</button>
+                    </div>
 
-            </form>
+                </form>
 
-            <form class="max-w-sm mx-auto mt-5" action="login.php">
+                <form class="max-w-sm mx-auto mt-5" action="login.php">
 
-                <div class="text-center">
-                    <button type="submit" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Login</button>
-                </div>
+                    <div class="text-center">
+                        <button type="submit" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Login</button>
+                    </div>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
-
-    </div>
 
     <?php
     }

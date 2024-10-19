@@ -14,5 +14,6 @@ $result = $db->prepare($sql);
 $result->execute([$kategori, $description, $completion, $id_user]);
 
 header("Location: main_page.php");
+exit();
 
 ?>

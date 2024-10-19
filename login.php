@@ -16,14 +16,20 @@
 
                 <h1 class="text-center text-4xl font-bold">Login Page</h1>
 
+                <?php if (isset($_GET['error'])) { ?>
+                    <div class="text-red-500 text-center mb-4">
+                        <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+                    </div>
+                <?php } ?>
+
                 <div class="mb-3 mt-10">
                     <label class="mb-2 text-lg font-medium text-gray-900">Username</label>
-                    <input type="text" name="username" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" required/>
+                    <input type="text" name="username" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" placeholder="Enter your Username" required/>
                 </div>
 
                 <div class="mb-3">
                     <label class="mb-2 text-lg font-medium text-gray-900">Password</label>
-                    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" required/>
+                    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" placeholder="Enter your Password" required/>
                 </div>
 
                 <div class="text-center">
