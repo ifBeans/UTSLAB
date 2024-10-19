@@ -158,7 +158,7 @@ if (isset($_POST['logout'])) {
 
                 <?php
 
-                    $filters = ['all', 'td', 'og', 'cp'];
+                    $filters = ['td', 'og', 'cp'];
                     $search = $_SESSION['search'] ?? '';
                     foreach ($filters as $filter) {
 
@@ -190,18 +190,22 @@ if (isset($_POST['logout'])) {
                         $stmt = $db->prepare($sql);
                         $stmt->execute($params);
 
-                        echo "<div class='grid grid-cols-1 items-start place-items-center'><h1>" . ucfirst($filter) . "</h1>";
+                        echo "<div class='grid grid-cols-1 items-start place-items-center'><h1>" . ($filter === 'td' ? "Todo" : ($filter === 'og' ? "Ongoing" : "Completed")) . "</h1>";
 
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo "<div class='grid shadow-2xl rounded-lg bg-" . ($filter === 'td' ? "red" : ($filter === 'og' ? "yellow" : "green")) . "-100 mt-5 p-10 w-3/4 text-start relative'>
                                     <button onclick='confirmDelete({$row['ID_Todo']})' class='absolute top-0 right-0 mt-2 mr-2 text-red-500 hover:text-red-700'>X</button>
-                                    <h1>{$row['category']}</h1>
-                                    <p class='text-md font-medium text-gray-900'>{$row['description']}</p>
-                                    <form class='max-w-sm ms-auto' method='post' onsubmit='return confirm(\"Are you sure you want to mark this as " . ($filter === 'td' ? "Ongoing" : "Completed") . "?\");'>
+                                    <h1>Test</h1>
+                                    <p class='text-md font-medium text-gray-900'>{$row['Description']}</p>";
+
+                                    if($filter === 'td' || $filter === 'og'){
+                                    echo "<form class='max-w-sm ms-auto' method='post' onsubmit='return confirm(\"Are you sure you want to mark this as " . ($filter === 'td' ? "Ongoing" : "Completed") . "?\");'>
                                         <input type='hidden' name='id_todo' value='{$row['ID_Todo']}'>
-                                        <button type='submit' name='" . ($filter === 'td' ? "ongoing" : "completed") . "' class='mt-2 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5'>" . ucfirst($filter) . "</button>
-                                    </form>
-                                  </div>";
+                                        <button type='submit' name='" . ($filter === 'td' ? "ongoing" : "completed") . "' class='mt-2 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5'>" . ($filter === 'td' ? "Todo" : ($filter === 'og' ? "Ongoing" : "Completed")) . "</button>
+                                    </form>";
+                                    }
+
+                                  echo "</div>";
                         }
                         echo "</div>";
 
@@ -308,12 +312,12 @@ if (isset($_POST['logout'])) {
 
                             <div class="grid shadow-2xl rounded-lg bg-red-400 mt-5 p-10 w-3/4 text-start">
 
-                                <h1><?php echo $row['category'] ?></h1>
-                                <p class="text-md font-medium text-gray-900"><?php echo $row['description'] ?></p>
+                                <h1><?php echo $row['Category'] ?></h1>
+                                <p class="text-md font-medium text-gray-900"><?php echo $row['Description'] ?></p>
 
                                 <form class="max-w-sm ms-auto" method="post">
 
-                                    <input type="hidden" name="id_todo" value=<?= $row['id_todo'] ?> />
+                                    <input type="hidden" name="id_todo" value=<?= $row['ID_Todo'] ?> />
                                     <button type="submit" name="ongoing" class="bg-transparent hover:bg-yellow-400 text-amber-200 font-semibold hover:text-white py-2 px-4 border border-yellow-400 hover:border-yellow-500 rounded">
                                         Ongoing
                                     </button>
