@@ -7,13 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM user WHERE username = ?";
+    $sql = "SELECT * FROM user WHERE username = :username";
     $stmt = $db->prepare($sql);
-    $stmt->execute([$username]);
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if (!$row) {
-        header('Location: login.php?error=' . urlencode('User Not Found'));
+        $_SESSION['login_error'] = "User Not Found";
+        header('Location: index.php');
         exit();
     } else {
 
@@ -22,13 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $row['Username'];
             header('Location: main_page.php');
         } else {
-            header('Location: login.php');
+            $_SESSION['login_error'] = "Wrong Password";
+            header('Location: index.php');
+            exit();
         }
         
     }
 }
 
 else {
-    header('Location: login.php');
+    header('Location: index.php');
     exit();
 }

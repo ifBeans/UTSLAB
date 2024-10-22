@@ -9,9 +9,10 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 $id = $_SESSION['id_user'];
 
-$sql = "SELECT username, email FROM user WHERE ID_User = ?";
+$sql = "SELECT username, email FROM user WHERE ID_User = :ID_User";
 $stmt = $db->prepare($sql);
-$stmt->execute([$id]);
+$stmt->bindParam(':ID_User', $id, PDO::PARAM_INT);
+$stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $username = $user['username'] ?? '';
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./src/output.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mx-auto p-6">

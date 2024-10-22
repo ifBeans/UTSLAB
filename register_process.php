@@ -1,6 +1,7 @@
 <?php
 
 require_once('db.php');
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -14,26 +15,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $checkAccount = "SELECT * FROM user WHERE username = ? OR email = ?";
+    $checkAccount = "SELECT * FROM user WHERE username = :username OR email = :email";
     $checkStmt = $db->prepare($checkAccount);
-    $checkStmt->execute([$username, $email]);
+    $checkStmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $checkStmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $checkStmt->execute();
 
     if ($checkStmt->rowCount() > 0) {
-        header("Location: register.php?error=" . urlencode("Username or email already exists."));
+        $_SESSION['register_error'] = "Username or email already exists";
+        header("Location: register.php");
         exit();
     }
 
-    $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+    else{
 
-    try {
-        $result = $db->prepare($sql);
-        $result->execute([$username, $email, $en_pass]);
+        $sql = "INSERT INTO user (username, email, password) VALUES (:username, :email, :password)";
 
-        header("Location: index.php");
-        exit();
-    } catch (PDOException $e) {
-        header("Location: register.php?error=" . urlencode("Registration failed: " . $e->getMessage()));
-        exit();
+        try {
+            $result = $db->prepare($sql);
+            $result->bindParam(':username', $username, PDO::PARAM_STR);
+            $result->bindParam(':email', $email, PDO::PARAM_STR);
+            $result->bindParam(':password', $en_pass, PDO::PARAM_STR);
+            $result->execute();
+
+            header("Location: index.php");
+            exit();
+        } catch (PDOException $e) {
+            header("Location: register.php?error=" . urlencode("Registration failed: " . $e->getMessage()));
+            exit();
+        }
     }
 }
 

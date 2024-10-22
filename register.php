@@ -1,10 +1,17 @@
+<?php
+
+session_start();
+unset($_SESSION['login_error']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./src/output.css" rel="stylesheet">
 </head>
 <body>
     
@@ -14,34 +21,46 @@
 
         <form class="max-w-sm mx-auto" action="register_process.php" method="post">
 
-                <h1 class="text-center text-4xl font-bold">Register Account</h1>
+            <h1 class="text-center text-4xl mt-5 font-bold">Register Account</h1>
 
-                <?php if (isset($_GET['error'])) { ?>
-                    <div class="text-red-500 text-center mb-4">
-                        <p><?php echo htmlspecialchars($_GET['error']); ?></p>
-                    </div>
-                <?php } ?>
+            <?php if (isset($_SESSION['register_error'])): ?>
+                <div class="bg-red-100 text-red-700 p-4 rounded my-4">
+                    <?php echo $_SESSION['register_error']; ?>
+                </div>
+            <?php endif; ?>
+
+            
+            <form action="register_process.php" method="post" class="space-y-4">
+
+                <div class="mt-2">
+                    <label for="username" class="block text-gray-700 font-medium">Username</label>
+                    <input type="text" name="username" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+
                 
-                <div class="mb-3 mt-10">
-                    <label class="mb-2 text-lg font-medium text-gray-900">Username</label>
-                    <input type="text" name="username" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" required/>
+                <div class="mt-2">
+                    <label for="email" class="block text-gray-700 font-medium">Email</label>
+                    <input type="email" name="email" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="mb-2 text-lg font-medium text-gray-900">Email</label>
-                    <input type="text" name="email" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" required/>
+                
+                <div class="mt-2">
+                    <label for="password" class="block text-gray-700 font-medium">Password</label>
+                    <input type="password" name="password" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="mb-2 text-lg font-medium text-gray-900">Password</label>
-                    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5" required/>
+                
+                <div>
+                    <button type="submit" class="w-full mt-5 bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        Register
+                    </button>
                 </div>
-
-                <div class="text-center">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Register</button>
-                </div>
-
             </form>
+
+            
+            <div class="mt-6 text-center">
+                <a href="index.php" class="text-indigo-600 hover:underline">Back to Login</a>
+            </div>
 
         </div>
 
