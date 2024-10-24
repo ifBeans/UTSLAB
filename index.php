@@ -44,8 +44,9 @@ $pstatement4->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="./src/output.css" rel="stylesheet">
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script> -->
 </head>
-<body>
+<body class="bg-gradient-to-r from-blue-200 to-cyan-200">
 
     <div class="container-fluid content-center p-6">
 
@@ -56,12 +57,12 @@ $pstatement4->execute();
                 <h1 class="text-center text-4xl font-bold">Login</h1>
 
                 <?php if (isset($_SESSION['login_error'])): ?>
-                    <div class="bg-red-100 text-red-700 p-4 rounded my-5">
+                    <div class="bg-red-100 text-red-700 p-4 rounded mt-10">
                         <?php echo $_SESSION['login_error']; ?>
                     </div>
                 <?php endif; ?>
 
-                <div class="mt-5">
+                <div class="mt-10">
                     <label for="username" class="block text-gray-700 font-medium">Username</label>
                     <input type="text" name="username" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter Your Username" required>
                 </div>

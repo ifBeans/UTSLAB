@@ -51,8 +51,9 @@ if (isset($_POST['logout'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="./src/output.css" rel="stylesheet">
+    <title>To-Do List</title>
+    <!-- <link href="./src/output.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script>
         function confirmDelete(id) {
             const modal = document.getElementById('deleteModal');
@@ -77,9 +78,10 @@ if (isset($_POST['logout'])) {
             modal.classList.add('hidden');
         }
     </script>
+
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-blue-200 to-cyan-200">
 
     <div class="container-fluid content-center p-6 flex justify-center">
 
@@ -97,7 +99,7 @@ if (isset($_POST['logout'])) {
 
             </div>
 
-            <div class="grid lg:flex">
+            <div class="grid grid-cols-1 md:grid-cols-2">
 
                 <form class="max-w-sm mx-auto" action="todo_add.php" method="post">
 
@@ -217,21 +219,25 @@ if (isset($_POST['logout'])) {
                 echo "<div class='grid grid-cols-1 items-start place-items-center justify-start shadow-2xl border-solid border-2 m-5 pt-5 pb-10 rounded-xl font-bold'><h1>" . ($filter === 'td' ? "Todo" : ($filter === 'og' ? "Ongoing" : "Completed")) . "</h1>";
 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<div class='grid shadow-2xl border-solid border-2 border-slate-300 hover:border-sky-500 rounded-lg bg-" . ($filter === 'td' ? "red" : ($filter === 'og' ? "yellow" : "green")) . "-100 mt-5 p-10 w-3/4 text-start relative'>
+                    echo "<div class='grid shadow-2xl border-solid border-4 border-stone-700 hover:border-sky-400 rounded-lg bg-" . ($filter === 'td' ? "red" : ($filter === 'og' ? "yellow" : "green")) . "-400 mt-5 w-3/4 text-start relative py-10 px-3'>
+                                
                                 <button onclick='confirmDelete({$row['ID_Todo']})' class='absolute top-0 right-0 mt-2 mr-2'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
                                         <path d='M 10.806641 2 C 10.289641 2 9.7956875 2.2043125 9.4296875 2.5703125 L 9 3 L 4 3 A 1.0001 1.0001 0 1 0 4 5 L 20 5 A 1.0001 1.0001 0 1 0 20 3 L 15 3 L 14.570312 2.5703125 C 14.205312 2.2043125 13.710359 2 13.193359 2 L 10.806641 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z'></path>
                                     </svg>
                                 </button>
-                                <h1 class='font-bold absolute top-0 left-0 mt-2 ms-5'>{$row['Category']}</h1>
-                                <p class='text-md font-medium text-gray-900'>{$row['Description']}</p>";
+
+                                <h1 class='font-bold absolute top-0 left-0 mt-2 ms-2 text-xs'>{$row['Category']}</h1>
+                                <p class='text-xs font-medium text-gray-900 mb-2'>{$row['Description']}</p>";
 
                     if ($filter === 'td' || $filter === 'og') {
-                        echo "<form class='max-w-sm ms-auto' method='post' onsubmit='return confirm(\"Are you sure you want to mark this as " . ($filter === 'td' ? "Ongoing" : "Completed") . "?\");'>
-                                    <input type='hidden' name='id_todo' value='{$row['ID_Todo']}'>
-                                    <button type='submit' name='" . ($filter === 'td' ? "ongoing" : "completed") . "' class='absolute bottom-0 right-0 me-5 mb-5 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm'>Change Status</button>
-                                </form>";
+                        echo "<form class='max-w-sm ms-auto absolute right-0 bottom-0 mt-2 mr-2' method='post' onsubmit='return confirm(\"Are you sure you want to mark this as " . ($filter === 'td' ? "Ongoing" : "Completed") . "?\");'>
+                                        <input type='hidden' name='id_todo' value='{$row['ID_Todo']}'>
+                                        <button type='submit' name='" . ($filter === 'td' ? "ongoing" : "completed") . "' class=' text-xs bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 md:py-2 md:px-4 mb-2 rounded'>Update</button>
+                                    </form>";
                     }
+
+
 
                     echo "</div>";
                 }

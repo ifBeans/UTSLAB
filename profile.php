@@ -23,10 +23,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-    <link href="./src/output.css" rel="stylesheet">
+    <!-- <link href="./src/output.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-blue-200 to-cyan-200">
     <div class="container mx-auto p-6">
         <h1 class="text-4xl font-bold mb-4">Profile</h1>
         <div class="bg-white shadow-md rounded-lg p-6">

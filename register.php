@@ -10,10 +10,10 @@ unset($_SESSION['login_error']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register </title>
     <link href="./src/output.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gradient-to-r from-blue-200 to-cyan-200">
     
     <div class="container-fluid content-center p-6">
 
@@ -24,7 +24,7 @@ unset($_SESSION['login_error']);
             <h1 class="text-center text-4xl mt-5 font-bold">Register Account</h1>
 
             <?php if (isset($_SESSION['register_error'])): ?>
-                <div class="bg-red-100 text-red-700 p-4 rounded my-4">
+                <div class="bg-red-100 text-red-700 p-4 rounded mt-10">
                     <?php echo $_SESSION['register_error']; ?>
                 </div>
             <?php endif; ?>
@@ -32,7 +32,7 @@ unset($_SESSION['login_error']);
             
             <form action="register_process.php" method="post" class="space-y-4">
 
-                <div class="mt-2">
+                <div class="mt-10">
                     <label for="username" class="block text-gray-700 font-medium">Username</label>
                     <input type="text" name="username" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                 </div>
