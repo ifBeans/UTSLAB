@@ -52,8 +52,7 @@ if (isset($_POST['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <!-- <link href="./src/output.css" rel="stylesheet"> -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script> 
     <script>
         function confirmDelete(id) {
             const modal = document.getElementById('deleteModal');
@@ -99,7 +98,7 @@ if (isset($_POST['logout'])) {
 
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="grid grid-cols-2 gap-6k">
 
                 <form class="max-w-sm mx-auto" action="todo_add.php" method="post">
 

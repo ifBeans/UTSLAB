@@ -1,17 +1,11 @@
 <?php
-
 session_start();
 unset($_SESSION['register_error']);
 $_SESSION['filter'] = "all";
 
-$dbname = 'utslab';
 
-$mysql = new PDO("mysql:host=localhost", 'root', '');
-$pstatement = $mysql->prepare("CREATE DATABASE IF NOT EXISTS $dbname");
-$pstatement->execute();
+$mysql = new PDO("mysql:host=sql303.infinityfree.com;dbname=if0_37550332_utslab", 'if0_37550332', 'Ajikan2005');
 
-$pstatement2 = $mysql->prepare("USE $dbname");
-$pstatement2->execute();
 
 $pstatement3 = $mysql->prepare("CREATE TABLE IF NOT EXISTS user(
     ID_User INT AUTO_INCREMENT,
@@ -20,8 +14,8 @@ $pstatement3 = $mysql->prepare("CREATE TABLE IF NOT EXISTS user(
     Password VARCHAR(70) NOT NULL,
     PRIMARY KEY (ID_User)
 )");
-
 $pstatement3->execute();
+
 
 $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
     ID_Todo INT AUTO_INCREMENT,
@@ -32,7 +26,6 @@ $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
     PRIMARY KEY (ID_Todo),
     FOREIGN KEY (ID_User) REFERENCES user(ID_User)
 )");
-
 $pstatement4->execute();
 
 ?>
@@ -43,8 +36,7 @@ $pstatement4->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="./src/output.css" rel="stylesheet">
-    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script> -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
 </head>
 <body class="bg-gradient-to-r from-blue-200 to-cyan-200">
 
