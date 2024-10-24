@@ -1,0 +1,19 @@
+{
+    "name": "lenovo/forgot_password",
+    "description": "Password",
+    "autoload": {
+        "psr-4": {
+            "Lenovo\\ForgotPassword\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ifBeans",
+            "email": "fabiandustin27@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    }
+}
