@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -10,8 +11,7 @@ unset($_SESSION['login_error']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register an Account</title>
-    <!-- <link href="./src/output.css" rel="stylesheet"> -->
+    <title>Register </title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
 </head>
 <body class="bg-gradient-to-r from-blue-200 to-cyan-200">

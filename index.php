@@ -1,31 +1,26 @@
-<?php
 
+<?php
 session_start();
-unset($_SESSION['register_error']);
 unset($_SESSION['email_success']);
 unset($_SESSION['email_fail']);
 unset($_SESSION['reset_success']);
 unset($_SESSION['reset_fail']);
+unset($_SESSION['register_error']);
 $_SESSION['filter'] = "all";
 
-$dbname = 'utslab';
 
-$mysql = new PDO("mysql:host=localhost", 'root', '');
-$pstatement = $mysql->prepare("CREATE DATABASE IF NOT EXISTS $dbname");
-$pstatement->execute();
+$mysql = new PDO("mysql:host=sql303.infinityfree.com;dbname=if0_37550332_utslab", 'if0_37550332', 'Ajikan2005');
 
-$pstatement2 = $mysql->prepare("USE $dbname");
-$pstatement2->execute();
 
 $pstatement3 = $mysql->prepare("CREATE TABLE IF NOT EXISTS user(
     ID_User INT AUTO_INCREMENT,
     Username VARCHAR(20) UNIQUE,
-    Email VARCHAR(50) NOT NULL,
+    Email VARCHAR(30) NOT NULL,
     Password VARCHAR(70) NOT NULL,
     PRIMARY KEY (ID_User)
 )");
-
 $pstatement3->execute();
+
 
 $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
     ID_Todo INT AUTO_INCREMENT,
@@ -36,31 +31,20 @@ $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
     PRIMARY KEY (ID_Todo),
     FOREIGN KEY (ID_User) REFERENCES user(ID_User)
 )");
-
 $pstatement4->execute();
-
-$pstatement5 = $mysql->prepare("CREATE TABLE IF NOT EXISTS reset_password(
-    ID_Reset INT AUTO_INCREMENT,
-    Email VARCHAR(50) NOT NULL,
-    Token VARCHAR(255) NOT NULL,
-    Expire INT NOT NULL,
-    PRIMARY KEY (ID_Reset)
-)");
-
-$pstatement5->execute();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- <link href="./src/output.css" rel="stylesheet"> -->
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-</head>
-<body class="bg-gradient-to-r from-blue-200 to-cyan-200">
+    </head>
+    <body class="bg-gradient-to-r from-blue-200 to-cyan-200">
 
     <div class="container-fluid content-center p-6">
 
@@ -95,10 +79,6 @@ $pstatement5->execute();
 
             <div class="mt-2 text-center">
                 <a href="register.php" class="text-indigo-600 hover:underline">Don't have an account? Register here</a>
-            </div>
-
-            <div class="mt-2 text-center">
-                <a href="forgot_password.php" class="text-indigo-600 hover:underline">Forgot Password?</a>
             </div>
 
         </div>
