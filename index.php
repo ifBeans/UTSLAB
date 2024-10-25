@@ -33,16 +33,6 @@ $pstatement4 = $mysql->prepare("CREATE TABLE IF NOT EXISTS todo(
 )");
 $pstatement4->execute();
 
-$pstatement5 = $mysql->prepare("CREATE TABLE IF NOT EXISTS reset_password(
-    ID_Reset INT AUTO_INCREMENT,
-    Email VARCHAR(50) NOT NULL,
-    Token VARCHAR(100) NOT NULL,
-    Expire INT NOT NULL,
-    PRIMARY KEY (ID_Reset)
-)");
-
-$pstatement5->execute();
-
 ?>
 
 <!DOCTYPE html>
@@ -90,11 +80,7 @@ $pstatement5->execute();
             <div class="mt-2 text-center">
                 <a href="register.php" class="text-indigo-600 hover:underline">Don't have an account? Register here</a>
             </div>
-
-            <div class="mt-2 text-center">
-                <a href="forgot_password.php" class="text-indigo-600 hover:underline">Forgot Password?</a>
-            </div>
-
+            
         </div>
 
     </div>
