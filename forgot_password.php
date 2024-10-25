@@ -6,7 +6,7 @@ unset($_SESSION['reset_fail']);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+require './vendor/autoload.php';
 require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->setFrom('fabiandustin27@gmail.com', 'To Do List');
             $mail->addAddress($email);
 
-            $resetLink = "http://localhost/WebProg/forgor/src/reset_password?token=" . $token;
+            $resetLink = "http://localhost/WebProg/forgor/reset_password?token=" . $token;
 
             $mail->isHTML(true);
             $mail->Subject = 'Password Reset Request';
