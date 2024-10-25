@@ -22,12 +22,12 @@ if (isset($_GET['token'])) {
             $enPass = password_hash($newPassword, PASSWORD_BCRYPT);
 
             $sql = $db->prepare("UPDATE user SET password = :password WHERE email = :email");
-            $sql->bindParam(':password', $enPass);
-            $sql->bindParam(':email', $result['Email']);
+            $sql->bindParam(':password', $enPass, PDO::PARAM_STR);
+            $sql->bindParam(':email', $result['Email'], PDO::PARAM_STR);
             $sql->execute();
 
             $sql = $db->prepare("DELETE FROM reset_password WHERE email = :email");
-            $sql->bindParam(':email', $result['Email']);
+            $sql->bindParam(':email', $result['Email'], PDO::PARAM_STR);
             $sql->execute();
 
             $_SESSION['reset_success'] = "Your password has been successfully updated.";
