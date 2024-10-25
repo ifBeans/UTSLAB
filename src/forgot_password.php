@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+unset($_SESSION['reset_success']);
+unset($_SESSION['reset_fail']);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->setFrom('fabiandustin27@gmail.com', 'To Do List');
             $mail->addAddress($email);
 
-            $resetLink = "http://localhost/WebProg/Forgot_Password/src/reset_password?token=" . $token;
+            $resetLink = "http://localhost/WebProg/forgor/src/reset_password?token=" . $token;
 
             $mail->isHTML(true);
             $mail->Subject = 'Password Reset Request';
@@ -53,12 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->send();
 
             $_SESSION['email_success'] = 'Password reset link has been sent to your email.';
+            unset( $_SESSION['email_fail']);
 
         } catch (Exception $e) {
             $_SESSION['email_fail'] = "Message could not be sent.";
+            unset( $_SESSION['email_success']);
         }
     } else {
         $_SESSION['email_fail'] = "No account found with that email.";
+        unset( $_SESSION['email_success']);
     }
 }
 ?>
@@ -81,12 +86,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <h1 class="text-center text-4xl font-bold">Reset Password</h1>
 
-            <?php if (isset($_SESSION['email_result'])): ?>
+            <?php if (isset($_SESSION['email_success'])): ?>
                 <div class="bg-green-100 text-green-700 p-4 rounded mt-10">
-                    <?php echo $_SESSION['email_result']; ?>
+                    <?php echo $_SESSION['email_success']; ?>
                 </div>
             <?php endif; ?>
-
+            
+            <?php if (isset($_SESSION['email_fail'])): ?>
+                <div class="bg-red-100 text-red-700 p-4 rounded mt-10">
+                    <?php echo $_SESSION['email_fail']; ?>
+                </div>
+            <?php endif; ?>
             <div class="mt-10">
                 <label for="username" class="block text-gray-700 font-medium">Enter Your Email</label>
                 <input type="email" name="email" class="w-full my-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
@@ -97,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Send Email
                 </button>
             </div>
+
 
         </form>
 

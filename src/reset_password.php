@@ -87,9 +87,11 @@ if (isset($_GET['token'])) {
 
             </form>
 
-            <div class="mt-2 text-center">
-                <a href="index.php" class="text-indigo-600 hover:underline">Back to Login</a>
-            </div>
+            <?php if (isset($_SESSION['reset_success'])): ?>
+                <div class="mt-2 text-center">
+                    <a href="index.php" class="text-indigo-600 hover:underline">Back to Login</a>
+                </div>
+            <?php endif; ?>
 
        </div>
 
